@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Free Video | Practical Data Analysis Course — Mbe Jireh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --black:#0F0E0C;
+  --white:#FFFFFF;
+  --orange:#C85A1A;
+  --orange-d:#A04414;
+  --orange-lt:#FAF0EA;
+  --orange-warm:#E06C2A;
+  --cream:#FAFAFA;
+  --warm:#F3EDE6;
+  --muted:#6B6860;
+  --border:rgba(0,0,0,0.09);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--cream);color:var(--black);line-height:1.65;overflow-x:hidden;}
+
+/* ── TOP ANNOUNCEMENT BAR ── */
+.topbar{
+  background:var(--black);color:var(--white);
+  text-align:center;padding:11px 20px;
+  font-size:12.5px;font-weight:500;letter-spacing:.04em;
+  position:sticky;top:0;z-index:100;
+}
+.topbar em{color:var(--orange-warm);font-style:normal;font-weight:700;}
+
+/* ── HERO ── */
+.hero{
+  max-width:1160px;margin:0 auto;
+  padding:64px 40px 52px;
+  display:grid;
+  grid-template-columns:1fr 440px;
+  gap:68px;
+  align-items:center;
+}
+
+/* left copy */
+.badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--orange-lt);border:1.5px solid var(--orange);
+  color:var(--orange);font-size:11px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;
+  padding:5px 14px;border-radius:40px;margin-bottom:24px;
+}
+.badge::before{content:'★';}
+
+h1{
+  font-family:var(--serif);
+  font-size:clamp(36px,4.2vw,56px);
+  font-weight:900;line-height:1.07;
+  letter-spacing:-.015em;margin-bottom:20px;
+}
+h1 em{font-style:italic;color:var(--orange);}
+h1 .ul{position:relative;display:inline;}
+h1 .ul::after{
+  content:'';position:absolute;left:0;bottom:-3px;
+  width:100%;height:3px;
+  background:var(--orange-warm);border-radius:2px;
+}
+
+.hero-sub{
+  font-size:17px;color:var(--muted);
+  line-height:1.75;margin-bottom:28px;max-width:500px;
+}
+
+/* what the video covers */
+.video-covers{
+  background:var(--white);
+  border:1.5px solid var(--border);
+  border-left:4px solid var(--orange);
+  border-radius:0 12px 12px 0;
+  padding:22px 24px;
+  margin-bottom:28px;
+}
+.vc-title{
+  font-size:12px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--orange);margin-bottom:14px;
+  display:flex;align-items:center;gap:8px;
+}
+.vc-title::before{
+  content:'▶';font-size:10px;
+  background:var(--orange);color:var(--white);
+  width:20px;height:20px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  padding-left:2px;flex-shrink:0;
+}
+.vc-list{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.vc-list li{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:15px;color:var(--black);line-height:1.55;
+}
+.vc-list li .dot{
+  flex-shrink:0;width:20px;height:20px;
+  border-radius:50%;background:var(--black);
+  color:var(--white);font-size:10px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  margin-top:1px;
+}
+
+/* by line */
+.by-line{font-size:13px;color:var(--muted);}
+.by-line strong{color:var(--orange);font-weight:700;}
+
+/* ── FORM CARD ── */
+.fcard{
+  background:var(--white);border-radius:20px;
+  padding:38px 34px;
+  box-shadow:0 8px 48px rgba(0,0,0,0.10),0 0 0 1px rgba(0,0,0,0.04);
+  position:relative;
+}
+.fcard::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--black),var(--orange));
+  border-radius:20px 20px 0 0;
+}
+.ftag{
+  display:inline-block;
+  background:var(--orange-lt);color:var(--orange);
+  font-size:10.5px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;padding:4px 12px;border-radius:40px;
+  margin-bottom:14px;
+}
+.fcard h2{
+  font-family:var(--serif);font-size:23px;font-weight:700;
+  line-height:1.2;margin-bottom:7px;
+}
+.fcard .fsub{font-size:13.5px;color:var(--muted);margin-bottom:22px;line-height:1.6;}
+
+.field-label{display:block;font-size:12.5px;font-weight:600;margin-bottom:5px;letter-spacing:.02em;}
+.field-input{
+  width:100%;padding:12px 15px;
+  border:1.5px solid #DDDAD4;border-radius:10px;
+  font-family:var(--sans);font-size:14.5px;
+  color:var(--black);background:var(--cream);
+  outline:none;margin-bottom:14px;
+  transition:border-color .2s,box-shadow .2s;
+}
+.field-input:focus{
+  border-color:var(--orange);
+  box-shadow:0 0 0 3px rgba(200,90,26,.10);
+  background:var(--white);
+}
+.field-input::placeholder{color:#B4B0A8;}
+
+.btn-submit{
+  width:100%;padding:15px;
+  background:var(--orange);color:var(--white);
+  font-family:var(--sans);font-size:15.5px;font-weight:700;
+  border:none;border-radius:12px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 4px 18px rgba(200,90,26,.30);
+  transition:background .2s,transform .15s,box-shadow .2s;
+}
+.btn-submit:hover{
+  background:var(--orange-d);
+  transform:translateY(-1px);
+  box-shadow:0 6px 24px rgba(200,90,26,.36);
+}
+.btn-submit .arr{font-size:17px;transition:transform .2s;}
+.btn-submit:hover .arr{transform:translateX(4px);}
+.trust-ln{text-align:center;font-size:11.5px;color:var(--muted);margin-top:12px;}
+
+/* ── VIDEO AREA (hidden until form submitted) ── */
+#video-block{display:none;margin-top:22px;}
+.vb-label{
+  font-size:12.5px;font-weight:700;color:var(--orange);
+  margin-bottom:10px;display:flex;align-items:center;gap:7px;
+}
+.vb-label::before{
+  content:'▶';font-size:10px;
+  background:var(--orange);color:var(--white);
+  width:20px;height:20px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  padding-left:2px;
+}
+.video-placeholder{
+  background:var(--black);border-radius:12px;
+  aspect-ratio:16/9;
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:10px;
+  border:2px dashed rgba(200,90,26,.4);
+}
+.vp-play{
+  width:54px;height:54px;background:var(--orange);
+  border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:20px;padding-left:4px;color:var(--white);
+}
+.vp-text{font-size:12.5px;color:rgba(255,255,255,.6);text-align:center;padding:0 16px;}
+.vp-text strong{display:block;font-size:14px;color:var(--white);margin-bottom:3px;}
+
+/* ── TIMER (hidden until form submitted) ── */
+#timer-block{display:none;margin-top:16px;}
+.timer-inner{
+  background:var(--orange-lt);
+  border:1.5px solid var(--orange);
+  border-radius:12px;padding:16px 18px;text-align:center;
+}
+.timer-label{
+  font-size:11.5px;font-weight:700;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--orange);margin-bottom:12px;
+}
+.cd-row{display:flex;align-items:center;justify-content:center;gap:6px;}
+.cd-unit{text-align:center;min-width:52px;}
+.cd-num{
+  display:block;font-family:var(--serif);
+  font-size:30px;font-weight:900;color:var(--orange);line-height:1;
+}
+.cd-lbl{font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);}
+.cd-sep{font-size:22px;font-weight:700;color:var(--orange);margin-bottom:10px;}
+.timer-sub{font-size:11.5px;color:var(--muted);margin-top:10px;}
+
+/* ── TRUST BAR ── */
+.tbar{background:var(--black);color:var(--white);padding:20px 40px;}
+.tbar-inner{
+  max-width:1160px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-around;
+  flex-wrap:wrap;gap:14px;
+}
+.ti{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:500;}
+.ti .dot{color:var(--orange-warm);}
+.tdiv{width:1px;height:24px;background:rgba(255,255,255,.12);}
+
+/* ── PAIN SECTION ── */
+.pain-sec{background:var(--warm);padding:72px 40px;}
+.pain-inner{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 320px;
+  gap:64px;align-items:center;
+}
+.s-tag{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;}
+.s-h2{font-family:var(--serif);font-size:clamp(26px,3.2vw,40px);font-weight:900;line-height:1.1;margin-bottom:22px;}
+.pain-items{display:flex;flex-direction:column;gap:14px;}
+.pi-card{
+  background:var(--white);border-radius:12px;
+  padding:18px 18px;display:flex;gap:13px;
+  align-items:flex-start;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);
+  border:1px solid var(--border);
+}
+.pi-card .icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.pi-card p{font-size:14.5px;color:var(--black);line-height:1.6;}
+
+/* ── WHAT THE FREE VIDEO COVERS ── */
+.topics-sec{padding:72px 40px;}
+.topics-inner{max-width:1100px;margin:0 auto;}
+.topics-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:36px;}
+.tc{
+  background:var(--white);border-radius:14px;
+  padding:26px 22px;
+  border:1px solid var(--border);
+  box-shadow:0 2px 12px rgba(0,0,0,.05);
+  display:flex;gap:15px;align-items:flex-start;
+  transition:transform .2s,box-shadow .2s;
+}
+.tc:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,0,0,.08);}
+.tc-num{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--black);color:var(--white);
+  font-family:var(--serif);font-size:16px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.tc-title{font-size:15.5px;font-weight:700;color:var(--black);margin-bottom:6px;}
+.tc-desc{font-size:13.5px;color:var(--muted);line-height:1.65;}
+
+/* outcome strip */
+.outcome-strip{
+  background:var(--black);border-radius:16px;
+  padding:28px 32px;margin-top:36px;
+  display:flex;align-items:center;gap:24px;
+  flex-wrap:wrap;
+}
+.os-icon{font-size:32px;flex-shrink:0;}
+.os-text h3{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--white);margin-bottom:4px;}
+.os-text p{font-size:14.5px;color:rgba(255,255,255,.68);line-height:1.6;}
+
+/* ── REVIEWS ── */
+.rev-sec{background:var(--black);padding:72px 40px;}
+.rev-inner{max-width:1100px;margin:0 auto;}
+.rev-inner .s-tag{color:var(--orange-warm);}
+.rev-inner .s-h2{color:var(--white);}
+.rev-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:36px;}
+.rc{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:16px;padding:26px 22px;
+  position:relative;
+  transition:background .2s,transform .2s;
+}
+.rc:hover{background:rgba(255,255,255,.09);transform:translateY(-2px);}
+.rc.big{grid-column:span 2;background:rgba(200,90,26,.12);border-color:rgba(200,90,26,.25);}
+.qm{
+  font-family:var(--serif);font-size:44px;
+  color:var(--orange);opacity:.22;
+  position:absolute;top:12px;left:16px;line-height:1;
+}
+.stars{color:var(--orange-warm);font-size:13px;letter-spacing:1px;margin-bottom:10px;}
+.rt{
+  font-size:15px;color:rgba(255,255,255,.78);
+  line-height:1.7;margin-bottom:16px;
+  padding-top:10px;font-style:italic;
+}
+.rc.big .rt{font-size:16px;}
+.ra{display:flex;align-items:center;gap:11px;}
+.rav{
+  width:38px;height:38px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:700;color:var(--white);flex-shrink:0;
+}
+.rn{font-weight:700;font-size:14px;color:var(--white);}
+.rr{font-size:12px;color:rgba(255,255,255,.48);}
+
+/* ── FINAL CTA ── */
+.fcta{background:var(--orange);padding:72px 40px;text-align:center;}
+.fcta-inner{max-width:580px;margin:0 auto;}
+.fcta h2{font-family:var(--serif);font-size:clamp(28px,3.5vw,44px);font-weight:900;color:var(--white);line-height:1.1;margin-bottom:14px;}
+.fcta p{font-size:16.5px;color:rgba(255,255,255,.85);margin-bottom:32px;line-height:1.65;}
+.btn-white{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--white);color:var(--orange);
+  font-family:var(--sans);font-size:16px;font-weight:700;
+  padding:16px 36px;border-radius:50px;border:none;
+  cursor:pointer;text-decoration:none;
+  box-shadow:0 4px 20px rgba(0,0,0,.15);
+  transition:box-shadow .2s,transform .15s;
+}
+.btn-white:hover{box-shadow:0 7px 28px rgba(0,0,0,.20);transform:translateY(-2px);}
+.fcta-note{font-size:13px;color:rgba(255,255,255,.6);margin-top:14px;}
+
+footer{
+  background:var(--black);color:rgba(255,255,255,.42);
+  text-align:center;padding:28px 40px;font-size:13px;
+}
+footer a{color:rgba(255,255,255,.6);text-decoration:underline;}
+footer strong{color:rgba(255,255,255,.78);}
+
+/* scroll reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:920px){
+  .hero{grid-template-columns:1fr;padding:44px 22px 36px;gap:36px;}
+  .pain-inner{grid-template-columns:1fr;}
+  .topics-grid{grid-template-columns:1fr;}
+  .rev-grid{grid-template-columns:1fr;}
+  .rc.big{grid-column:auto;}
+  .pain-sec,.topics-sec,.rev-sec,.fcta{padding:52px 22px;}
+  .tbar{padding:18px 22px;}
+  .tdiv{display:none;}
+  .outcome-strip{flex-direction:column;gap:14px;padding:22px 22px;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  🎓 Watch the free intro video — <em>Practical Data Analysis Course</em> by Mbe Jireh
+</div>
+
+<!-- ════════════════════════════════════════
+     HERO
+════════════════════════════════════════ -->
+<section class="hero">
+
+  <!-- LEFT COPY -->
+  <div>
+    <div class="badge">Free Intro Video</div>
+
+    <h1>
+      Finally understand<br>
+      <em>Chapter 4 & 5</em> — even<br>
+      if you <span class="ul">fear statistics</span>
+    </h1>
+
+    <p class="hero-sub">
+      In one free video, Mbe Jireh walks you through exactly what data analysis is, what SPSS does, and why students struggle — so you know what to expect before joining the full course.
+    </p>
+
+    <!-- WHAT THE FREE VIDEO COVERS -->
+    <div class="video-covers">
+      <div class="vc-title">In this free video you will learn</div>
+      <ul class="vc-list">
+        <li>
+          <span class="dot">1</span>
+          <span><strong>Why Chapter 4 feels impossible</strong> — the real reason students struggle, and the mindset shift that changes everything</span>
+        </li>
+        <li>
+          <span class="dot">2</span>
+          <span><strong>What SPSS actually is</strong> — explained in plain, simple language with no technical jargon</span>
+        </li>
+        <li>
+          <span class="dot">3</span>
+          <span><strong>Quantitative vs qualitative data</strong> — the easy way to understand the difference and know which applies to your project</span>
+        </li>
+        <li>
+          <span class="dot">4</span>
+          <span><strong>What questionnaires are used for</strong> — and what "analysis" actually means in plain English</span>
+        </li>
+        <li>
+          <span class="dot">5</span>
+          <span><strong>A live SPSS demonstration</strong> — variables, data entry, and a simple output — so the fear disappears completely</span>
+        </li>
+        <li>
+          <span class="dot">6</span>
+          <span><strong>The 5 mistakes that cost students marks</strong> — wrong coding, wrong analysis, poor interpretation, and more</span>
+        </li>
+      </ul>
+    </div>
+
+    <p class="by-line">Created by <strong>Mbe Jireh</strong> · Practical Data Analysis Course</p>
+  </div>
+
+  <!-- RIGHT: FORM CARD -->
+  <div class="fcard">
+    <div class="ftag">100% Free · Watch Instantly</div>
+    <h2 class="fcard-h">Watch the free intro video</h2>
+    <p class="fsub">Enter your name and WhatsApp number. Your video unlocks immediately — no payment required.</p>
+
+    <form id="optin-form" onsubmit="handleSubmit(event)">
+      <label class="field-label" for="fname">Your first name</label>
+      <input class="field-input" type="text" id="fname" placeholder="e.g. Blessing" required/>
+
+      <label class="field-label" for="fwa">Your WhatsApp number</label>
+      <input class="field-input" type="tel" id="fwa" placeholder="e.g. +237 612 345 678" required/>
+
+      <button class="btn-submit" type="submit">
+        Watch the free video now <span class="arr">→</span>
+      </button>
+    </form>
+    <p style="font-size:11px;color:var(--muted);margin-top:8px;text-align:center;">
+      Prefer to fill via Google Form? <a href="https://forms.gle/hN9FTjgioJuk4d1q8" target="_blank" style="color:var(--orange);font-weight:600;">Click here →</a>
+    </p>
+    <p class="trust-ln">🔒 No spam. No payment. No catch.</p>
+
+    <!-- VIDEO AREA — appears after form submit -->
+    <div id="video-block">
+      <div class="vb-label">Your free video is ready — watch now</div>
+
+      <iframe
+        width="100%"
+        style="aspect-ratio:16/9;border-radius:12px;border:none;display:block;"
+        src="https://www.youtube.com/embed/Z0O4Im96JJw"
+        title="Practical Data Analysis Course — Free Intro Video"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <!-- CTA AFTER VIDEO — appears with video -->
+    <div id="cta-after-video" style="display:none;margin-top:18px;background:var(--black);border-radius:14px;padding:22px 20px;text-align:center;">
+      <p style="font-size:13px;font-weight:600;color:rgba(255,255,255,.7);margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase;">Ready to go further?</p>
+      <p style="font-family:var(--serif);font-size:18px;font-weight:700;color:var(--white);line-height:1.3;margin-bottom:16px;">Join the full Practical Data Analysis Course — 10,000 frs</p>
+      <a href="https://sites.google.com/view/practical-data-analysis-course/home" target="_blank"
+        style="display:block;width:100%;padding:13px;background:var(--orange);color:var(--white);font-family:var(--sans);font-size:15px;font-weight:700;border-radius:10px;text-decoration:none;text-align:center;box-shadow:0 4px 14px rgba(200,90,26,.35);transition:background .2s;">
+        See the full course →
+      </a>
+      <p style="font-size:11.5px;color:rgba(255,255,255,.45);margin-top:10px;">MTN MoMo · Pascaline Ayoh · Lifetime access</p>
+    </div>
+
+    <!-- TIMER — appears after form submit -->
+    <div id="timer-block">
+      <div class="timer-inner">
+        <div class="timer-label">⚡ Free access expires in — watch now before it closes</div>
+        <div class="cd-row">
+          <div class="cd-unit">
+            <span class="cd-num" id="cd-h">47</span>
+            <span class="cd-lbl">hours</span>
+          </div>
+          <span class="cd-sep">:</span>
+          <div class="cd-unit">
+            <span class="cd-num" id="cd-m">59</span>
+            <span class="cd-lbl">mins</span>
+          </div>
+          <span class="cd-sep">:</span>
+          <div class="cd-unit">
+            <span class="cd-num" id="cd-s">59</span>
+            <span class="cd-lbl">secs</span>
+          </div>
+        </div>
+        <div class="timer-sub">After 48 hours, return and re-enter your details to watch again.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="tbar">
+  <div class="tbar-inner">
+    <div class="ti"><span class="dot">▶</span> One complete free intro video</div>
+    <div class="tdiv"></div>
+    <div class="ti"><span class="dot">✓</span> No payment required</div>
+    <div class="tdiv"></div>
+    <div class="ti"><span class="dot">✓</span> See exactly what the course covers</div>
+    <div class="tdiv"></div>
+    <div class="ti"><span class="dot">✓</span> Live SPSS demo included</div>
+    <div class="tdiv"></div>
+    <div class="ti"><span class="dot">✓</span> Created by Mbe Jireh</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     PAIN SECTION with SVG cartoon
+════════════════════════════════════════ -->
+<section class="pain-sec">
+  <div class="pain-inner reveal">
+
+    <!-- TEXT LEFT -->
+    <div>
+      <div class="s-tag">Sound familiar?</div>
+      <h2 class="s-h2">You are not the problem.<br>Nobody ever taught you this properly.</h2>
+      <div class="pain-items">
+        <div class="pi-card">
+          <span class="icon">😩</span>
+          <p>You opened SPSS for the first time and felt completely overwhelmed — columns, menus, and numbers with no explanation of what to do.</p>
+        </div>
+        <div class="pi-card">
+          <span class="icon">📋</span>
+          <p>Chapter 4 is still blank and your deadline keeps getting closer. You have watched videos and read notes but still feel completely lost.</p>
+        </div>
+        <div class="pi-card">
+          <span class="icon">😰</span>
+          <p>You are afraid you will submit something you do not understand and fail — or disappoint your supervisor in a viva voce session.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SVG CARTOON RIGHT: confused student at laptop -->
+    <div style="display:flex;justify-content:center;align-items:center;">
+      <svg width="280" height="310" viewBox="0 0 280 310" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cartoon of an African student looking confused and stressed at a laptop with question marks around them">
+
+        <!-- desk -->
+        <rect x="20" y="234" width="240" height="13" rx="4" fill="#C8B89A"/>
+        <rect x="50" y="247" width="11" height="44" rx="4" fill="#B5A08A"/>
+        <rect x="219" y="247" width="11" height="44" rx="4" fill="#B5A08A"/>
+
+        <!-- laptop -->
+        <rect x="58" y="178" width="164" height="60" rx="6" fill="#2A2A2A"/>
+        <rect x="64" y="184" width="152" height="48" rx="4" fill="#0A6B50"/>
+        <!-- SPSS column lines on screen -->
+        <rect x="70" y="190" width="18" height="36" rx="2" fill="rgba(255,255,255,.14)"/>
+        <rect x="92" y="190" width="18" height="36" rx="2" fill="rgba(255,255,255,.14)"/>
+        <rect x="114" y="190" width="18" height="36" rx="2" fill="rgba(255,255,255,.14)"/>
+        <rect x="136" y="190" width="18" height="36" rx="2" fill="rgba(255,255,255,.14)"/>
+        <rect x="158" y="190" width="50" height="36" rx="2" fill="rgba(255,255,255,.14)"/>
+        <text x="140" y="210" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.65)" font-family="monospace">VAR001  VAR002  VAR003</text>
+        <!-- laptop base -->
+        <rect x="46" y="236" width="188" height="7" rx="3" fill="#555"/>
+        <rect x="108" y="240" width="64" height="3" rx="1" fill="#333"/>
+
+        <!-- arms -->
+        <path d="M100 248 Q80 256 78 268" stroke="#7A4020" stroke-width="13" stroke-linecap="round" fill="none"/>
+        <path d="M180 248 Q200 256 202 268" stroke="#7A4020" stroke-width="13" stroke-linecap="round" fill="none"/>
+        <ellipse cx="78" cy="272" rx="10" ry="8" fill="#7A4020"/>
+        <ellipse cx="202" cy="272" rx="10" ry="8" fill="#7A4020"/>
+
+        <!-- shirt / body -->
+        <ellipse cx="140" cy="252" rx="38" ry="20" fill="#C85A1A"/>
+
+        <!-- neck -->
+        <rect x="132" y="208" width="16" height="16" rx="4" fill="#7A4020"/>
+
+        <!-- head -->
+        <ellipse cx="140" cy="190" rx="34" ry="32" fill="#7A4020"/>
+
+        <!-- afro hair -->
+        <ellipse cx="140" cy="170" rx="36" ry="26" fill="#1A0F04"/>
+        <ellipse cx="116" cy="182" rx="16" ry="20" fill="#1A0F04"/>
+        <ellipse cx="164" cy="182" rx="16" ry="20" fill="#1A0F04"/>
+        <ellipse cx="140" cy="158" rx="28" ry="18" fill="#1A0F04"/>
+
+        <!-- worried eyes -->
+        <ellipse cx="126" cy="189" rx="7" ry="8" fill="white"/>
+        <ellipse cx="154" cy="189" rx="7" ry="8" fill="white"/>
+        <ellipse cx="126" cy="191" rx="4" ry="5" fill="#1A0F04"/>
+        <ellipse cx="154" cy="191" rx="4" ry="5" fill="#1A0F04"/>
+        <!-- worried brows -->
+        <path d="M118 181 Q126 176 134 181" stroke="#1A0F04" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M146 181 Q154 176 162 181" stroke="#1A0F04" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- confused mouth -->
+        <path d="M128 204 Q134 200 140 204 Q146 208 152 204" stroke="#4A1A08" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+        <!-- sweat drop -->
+        <ellipse cx="172" cy="175" rx="5" ry="6" fill="#7DD8F0"/>
+        <path d="M172 168 L176 175 L168 175Z" fill="#7DD8F0"/>
+
+        <!-- floating question marks -->
+        <text x="32" y="178" font-size="28" fill="#C85A1A" font-weight="900" font-family="Georgia,serif" opacity=".9">?</text>
+        <text x="232" y="164" font-size="22" fill="#0F0E0C" font-weight="900" font-family="Georgia,serif" opacity=".65">?</text>
+        <text x="50" y="146" font-size="16" fill="#C85A1A" font-weight="900" font-family="Georgia,serif" opacity=".55">?</text>
+        <text x="218" y="198" font-size="18" fill="#0F0E0C" font-weight="900" font-family="Georgia,serif" opacity=".55">?</text>
+
+        <!-- caption -->
+        <text x="140" y="302" text-anchor="middle" font-size="11.5" fill="#6B6860" font-family="'DM Sans',sans-serif">This changes after the free video 😊</text>
+      </svg>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     WHAT THE FREE VIDEO COVERS (full section)
+════════════════════════════════════════ -->
+<section class="topics-sec">
+  <div class="topics-inner reveal">
+    <div class="s-tag">Inside the free video</div>
+    <h2 class="s-h2" style="font-family:var(--serif);font-size:clamp(26px,3.2vw,40px);font-weight:900;line-height:1.1;margin-bottom:10px;">
+      Everything covered in one video
+    </h2>
+    <p style="font-size:16px;color:var(--muted);max-width:580px;line-height:1.75;margin-bottom:0;">
+      One complete, focused video that takes you from confusion to clarity — covering all five topics back to back.
+    </p>
+
+    <!-- CARTOON: 3 students with lightbulbs -->
+    <div style="text-align:center;margin:32px 0 8px;">
+      <svg width="380" height="156" viewBox="0 0 380 156" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three African students each having a lightbulb moment of understanding">
+
+        <!-- STUDENT 1 (female, left) -->
+        <ellipse cx="64" cy="72" rx="26" ry="24" fill="#7A4020"/>
+        <!-- afro -->
+        <ellipse cx="64" cy="55" rx="28" ry="22" fill="#1A0F04"/>
+        <ellipse cx="44" cy="66" rx="13" ry="17" fill="#1A0F04"/>
+        <ellipse cx="84" cy="66" rx="13" ry="17" fill="#1A0F04"/>
+        <!-- earring -->
+        <circle cx="40" cy="72" r="4" fill="#C85A1A"/>
+        <!-- eyes closed/squinted in joy -->
+        <path d="M52 71 Q58 66 64 71" stroke="#1A0F04" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M64 71 Q70 66 76 71" stroke="#1A0F04" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- smile -->
+        <path d="M52 85 Q64 95 76 85" stroke="#4A1A08" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- body/shirt -->
+        <ellipse cx="64" cy="112" rx="24" ry="16" fill="#C85A1A"/>
+        <!-- lightbulb -->
+        <ellipse cx="94" cy="44" rx="11" ry="13" fill="#FFD84D"/>
+        <rect x="89" y="55" width="10" height="6" rx="2" fill="#C8922A"/>
+        <line x1="94" y1="28" x2="94" y2="22" stroke="#FFD84D" stroke-width="2"/>
+        <line x1="82" y1="33" x2="77" y2="27" stroke="#FFD84D" stroke-width="2"/>
+        <line x1="106" y1="33" x2="111" y2="27" stroke="#FFD84D" stroke-width="2"/>
+        <text x="64" y="144" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="11" fill="#C85A1A" font-weight="700">Anya</text>
+
+        <!-- STUDENT 2 (male, centre — bigger) -->
+        <ellipse cx="190" cy="64" rx="30" ry="28" fill="#5C2E0A"/>
+        <path d="M160 62 Q162 36 190 33 Q218 36 220 62 Q211 48 190 46 Q169 48 160 62Z" fill="#1A0F04"/>
+        <!-- eyes -->
+        <ellipse cx="178" cy="63" rx="5.5" ry="6.5" fill="white"/><ellipse cx="178" cy="65" rx="3.5" ry="4.5" fill="#1A0F04"/>
+        <ellipse cx="202" cy="63" rx="5.5" ry="6.5" fill="white"/><ellipse cx="202" cy="65" rx="3.5" ry="4.5" fill="#1A0F04"/>
+        <!-- smile -->
+        <path d="M176 82 Q190 94 204 82" stroke="#3A1808" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- blush -->
+        <ellipse cx="172" cy="78" rx="8" ry="4.5" fill="rgba(200,100,60,.22)"/>
+        <ellipse cx="208" cy="78" rx="8" ry="4.5" fill="rgba(200,100,60,.22)"/>
+        <!-- body -->
+        <ellipse cx="190" cy="108" rx="28" ry="18" fill="#0F0E0C"/>
+        <!-- big lightbulb -->
+        <ellipse cx="226" cy="32" rx="16" ry="18" fill="#FFD84D"/>
+        <rect x="219" y="47" width="14" height="8" rx="3" fill="#C8922A"/>
+        <line x1="226" y1="10" x2="226" y2="2" stroke="#FFD84D" stroke-width="2.5"/>
+        <line x1="210" y1="17" x2="202" y2="10" stroke="#FFD84D" stroke-width="2.5"/>
+        <line x1="242" y1="17" x2="250" y2="10" stroke="#FFD84D" stroke-width="2.5"/>
+        <text x="190" y="144" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="11" fill="#0F0E0C" font-weight="700">Tayong</text>
+
+        <!-- STUDENT 3 (female, right) -->
+        <ellipse cx="316" cy="72" rx="26" ry="24" fill="#7A4020"/>
+        <!-- hair bun -->
+        <path d="M290 70 Q292 48 316 46 Q340 48 342 70 Q334 58 316 56 Q298 58 290 70Z" fill="#1A0F04"/>
+        <ellipse cx="316" cy="44" rx="14" ry="10" fill="#1A0F04"/>
+        <circle cx="316" cy="38" r="7" fill="#1A0F04"/>
+        <circle cx="316" cy="34" r="5" fill="#C85A1A"/>
+        <!-- eyes squinted happy -->
+        <path d="M304 71 Q310 66 316 71" stroke="#1A0F04" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M316 71 Q322 66 328 71" stroke="#1A0F04" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- smile -->
+        <path d="M304 85 Q316 95 328 85" stroke="#4A1A08" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- body -->
+        <ellipse cx="316" cy="112" rx="24" ry="16" fill="#C85A1A"/>
+        <!-- lightbulb -->
+        <ellipse cx="346" cy="44" rx="11" ry="13" fill="#FFD84D"/>
+        <rect x="341" y="55" width="10" height="6" rx="2" fill="#C8922A"/>
+        <line x1="346" y1="28" x2="346" y2="22" stroke="#FFD84D" stroke-width="2"/>
+        <line x1="334" y1="33" x2="329" y2="27" stroke="#FFD84D" stroke-width="2"/>
+        <line x1="358" y1="33" x2="363" y2="27" stroke="#FFD84D" stroke-width="2"/>
+        <text x="316" y="144" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="11" fill="#C85A1A" font-weight="700">Mildred</text>
+      </svg>
+    </div>
+
+    <div class="topics-grid">
+      <div class="tc">
+        <div class="tc-num">1</div>
+        <div>
+          <div class="tc-title">Why students fear Chapter 4</div>
+          <div class="tc-desc">The real reason data analysis feels so hard — and the one mindset shift that removes the fear completely and makes everything feel learnable.</div>
+        </div>
+      </div>
+      <div class="tc">
+        <div class="tc-num">2</div>
+        <div>
+          <div class="tc-title">What SPSS actually is</div>
+          <div class="tc-desc">SPSS explained in plain, simple language — what it is, what it does, and why it is far less complicated than it looks when you open it for the first time.</div>
+        </div>
+      </div>
+      <div class="tc">
+        <div class="tc-num">3</div>
+        <div>
+          <div class="tc-title">Quantitative vs qualitative data</div>
+          <div class="tc-desc">The easy, practical difference between the two data types — and how to know immediately which one applies to your own research project.</div>
+        </div>
+      </div>
+      <div class="tc">
+        <div class="tc-num">4</div>
+        <div>
+          <div class="tc-title">Live SPSS demonstration</div>
+          <div class="tc-desc">A real, on-screen SPSS walkthrough — variables, data entry, and a simple output table — so you see with your own eyes that it is not as scary as it looks.</div>
+        </div>
+      </div>
+      <div class="tc">
+        <div class="tc-num">5</div>
+        <div>
+          <div class="tc-title">The 5 mistakes that fail students</div>
+          <div class="tc-desc">Wrong coding, wrong analysis, poor interpretation, copy-pasting results, and misaligned objectives — the exact mistakes costing students marks, and how to avoid every one.</div>
+        </div>
+      </div>
+      <div class="tc">
+        <div class="tc-num">6</div>
+        <div>
+          <div class="tc-title">What comes next — the full course</div>
+          <div class="tc-desc">A preview of the complete Practical Data Analysis Course — SPSS, qualitative analysis, Chapter 4 & 5 writing, and how to turn this skill into income.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- outcome strip -->
+    <div class="outcome-strip">
+      <div class="os-icon">🎯</div>
+      <div class="os-text">
+        <h3>By the end of this free video, you will know exactly what data analysis is — and feel genuinely ready to start.</h3>
+        <p>No jargon. No confusion. Just clear, practical understanding that gives you confidence — whether you are a student or someone building a new skill.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     REVIEWS
+════════════════════════════════════════ -->
+<section class="rev-sec">
+  <div class="rev-inner reveal">
+    <div class="s-tag">What students say</div>
+    <h2 class="s-h2">Real students. Real results.</h2>
+    <div class="rev-grid">
+
+      <div class="rc big">
+        <div class="qm">"</div>
+        <div class="stars">★★★★★</div>
+        <p class="rt">I had learned data analysis before but it felt scattered and overwhelming everywhere I tried to learn it. With this course, I now have a clear, structured understanding — and the confidence to do data analysis completely on my own. This skill is genuinely earning me money now.</p>
+        <div class="ra">
+          <div class="rav" style="background:#C85A1A;">M</div>
+          <div><div class="rn">Mildred</div><div class="rr">Practical Data Analysis Course · Skill Graduate</div></div>
+        </div>
+      </div>
+
+      <div class="rc">
+        <div class="qm">"</div>
+        <div class="stars">★★★★★</div>
+        <p class="rt">Thank you Ma for teaching me the skills of data analysis. In just 4 hours I had mastered what I expected would take weeks. Faster and more practical than I ever imagined.</p>
+        <div class="ra">
+          <div class="rav" style="background:#0F0E0C;">T</div>
+          <div><div class="rn">Tayong</div><div class="rr">Practical Data Analysis Course · Student</div></div>
+        </div>
+      </div>
+
+      <div class="rc">
+        <div class="qm">"</div>
+        <div class="stars">★★★★★</div>
+        <p class="rt">The videos are so clear and explicit — every step is explained. I had forgotten some things from a previous class and this course brought everything back in a way that finally made complete sense to me.</p>
+        <div class="ra">
+          <div class="rav" style="background:#C85A1A;">A</div>
+          <div><div class="rn">Anya</div><div class="rr">Practical Data Analysis Course · Student</div></div>
+        </div>
+      </div>
+
+      <div class="rc">
+        <div class="qm">"</div>
+        <div class="stars">★★★★★</div>
+        <p class="rt">Simple, practical, and effective. The videos are well-made and easy to follow. I now understand exactly what to do for my analysis — no more going in circles or guessing what comes next.</p>
+        <div class="ra">
+          <div class="rav" style="background:#0F0E0C;">S</div>
+          <div><div class="rn">Sally</div><div class="rr">Practical Data Analysis Course · Student</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     BRIDGE TO LANDING PAGE
+════════════════════════════════════════ -->
+<section style="background:var(--orange-lt);border-top:2px solid var(--orange);border-bottom:2px solid var(--orange);padding:52px 40px;text-align:center;">
+  <div style="max-width:640px;margin:0 auto;" class="reveal">
+    <p style="font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;">Liked what you saw in the free video?</p>
+    <h2 style="font-family:var(--serif);font-size:clamp(26px,3.5vw,40px);font-weight:900;color:var(--black);line-height:1.1;margin-bottom:16px;">
+      The full course takes you from<br>this free video — all the way to submitting.
+    </h2>
+    <p style="font-size:16px;color:var(--muted);line-height:1.75;margin-bottom:28px;max-width:520px;margin-left:auto;margin-right:auto;">
+      SPSS setup, every analysis, Chapter 4 &amp; 5 writing, qualitative analysis with Excel, AI interpretation, Telegram community, and lifetime access — all for <strong style="color:var(--black);">10,000 frs</strong>.
+    </p>
+    <a href="https://sites.google.com/view/practical-data-analysis-course/home" target="_blank"
+      style="display:inline-flex;align-items:center;gap:9px;background:var(--orange);color:var(--white);font-family:var(--sans);font-size:16px;font-weight:700;padding:15px 36px;border-radius:50px;text-decoration:none;box-shadow:0 4px 18px rgba(200,90,26,.30);transition:background .2s,transform .15s;">
+      See everything in the full course →
+    </a>
+    <p style="font-size:12px;color:var(--muted);margin-top:14px;">MTN MoMo · Pascaline Ayoh · Lifetime access · Telegram community included</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     FINAL CTA
+════════════════════════════════════════ -->
+<section class="fcta reveal">
+  <div class="fcta-inner">
+
+    <!-- cartoon: success student -->
+    <div style="margin-bottom:20px;">
+      <svg width="130" height="148" viewBox="0 0 130 148" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cartoon of an African student celebrating with arms raised and a big smile">
+        <!-- arms up -->
+        <path d="M44 80 Q30 58 24 42" stroke="#7A4020" stroke-width="13" stroke-linecap="round" fill="none"/>
+        <path d="M86 80 Q100 58 106 42" stroke="#7A4020" stroke-width="13" stroke-linecap="round" fill="none"/>
+        <ellipse cx="23" cy="39" rx="9" ry="7" fill="#7A4020"/>
+        <ellipse cx="107" cy="39" rx="9" ry="7" fill="#7A4020"/>
+        <!-- body -->
+        <ellipse cx="65" cy="102" rx="30" ry="21" fill="#C85A1A"/>
+        <!-- legs -->
+        <rect x="52" y="121" width="12" height="22" rx="5" fill="#1A0F04"/>
+        <rect x="66" y="121" width="12" height="22" rx="5" fill="#1A0F04"/>
+        <ellipse cx="58" cy="143" rx="9" ry="5" fill="#333"/>
+        <ellipse cx="72" cy="143" rx="9" ry="5" fill="#333"/>
+        <!-- head -->
+        <ellipse cx="65" cy="68" rx="30" ry="28" fill="#7A4020"/>
+        <!-- afro hair -->
+        <ellipse cx="65" cy="50" rx="32" ry="22" fill="#1A0F04"/>
+        <ellipse cx="43" cy="62" rx="14" ry="17" fill="#1A0F04"/>
+        <ellipse cx="87" cy="62" rx="14" ry="17" fill="#1A0F04"/>
+        <!-- happy eyes -->
+        <path d="M52 67 Q58 61 64 67" stroke="#1A0F04" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M66 67 Q72 61 78 67" stroke="#1A0F04" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- big smile -->
+        <path d="M50 82 Q65 95 80 82" stroke="#4A1A08" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- blush -->
+        <ellipse cx="50" cy="79" rx="7" ry="4" fill="rgba(240,120,60,.22)"/>
+        <ellipse cx="80" cy="79" rx="7" ry="4" fill="rgba(240,120,60,.22)"/>
+        <!-- confetti -->
+        <rect x="6" y="30" width="7" height="4" rx="1" fill="#FFD84D" transform="rotate(-15,9,32)"/>
+        <rect x="110" y="24" width="6" height="4" rx="1" fill="#FFFFFF" transform="rotate(20,113,26)"/>
+        <circle cx="12" cy="58" r="4" fill="#FFFFFF"/>
+        <circle cx="118" cy="52" r="3" fill="#FFD84D"/>
+        <rect x="8" y="80" width="5" height="7" rx="1" fill="#FFD84D" transform="rotate(25,10,83)"/>
+      </svg>
+    </div>
+
+    <h2>Watch the free video.<br>See what's possible.</h2>
+    <p>In one free video, see exactly what data analysis is, how SPSS works, and what the Practical Data Analysis Course covers — before you spend a single franc.</p>
+    <a href="https://sites.google.com/view/practical-data-analysis-course/home" target="_blank" class="btn-white">
+      See the full course — 10,000 frs →
+    </a>
+    <p class="fcta-note">Or <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" style="color:rgba(255,255,255,.8);font-weight:600;">watch the free video first ↑</a> · Questions? <a href="https://wa.link/mh6svf" target="_blank" style="color:rgba(255,255,255,.8);font-weight:600;">WhatsApp us →</a></p>
+  </div>
+</section>
+
+<footer>
+  <p>Created by <strong>Mbe Jireh</strong> · Practical Data Analysis Course</p>
+  <p style="margin-top:7px">Questions? WhatsApp: <a href="https://wa.link/mh6svf">+237 673 980 651</a></p>
+  <p style="margin-top:7px">© 2025 · All rights reserved</p>
+</footer>
+
+<script>
+// scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(r => obs.observe(r));
+
+// form submit — send to Google Form in background, unlock video + start 48h timer
+function handleSubmit(e) {
+  e.preventDefault();
+  const name = encodeURIComponent(document.getElementById('fname').value);
+  const phone = encodeURIComponent(document.getElementById('fwa').value);
+  // Open Google Form pre-filled in background tab
+  window.open('https://forms.gle/hN9FTjgioJuk4d1q8', '_blank');
+  // hide form, show video + timer
+  document.getElementById('optin-form').style.display = 'none';
+  document.getElementById('video-block').style.display = 'block';
+  document.getElementById('timer-block').style.display = 'block';
+  document.getElementById('cta-after-video').style.display = 'block';
+
+  // 48-hour countdown
+  const deadline = new Date(Date.now() + 48 * 3600 * 1000);
+  function tick() {
+    const diff = Math.max(0, deadline - new Date());
+    const h = Math.floor(diff / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-h').textContent = String(h).padStart(2, '0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2, '0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2, '0');
+    if (diff > 0) setTimeout(tick, 1000);
+  }
+  tick();
+
+  // smooth scroll to video
+  setTimeout(() => {
+    document.getElementById('video-block').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 300);
+}
+</script>
+</body>
+</html>
